@@ -19,7 +19,7 @@ public class ReadProductExcel {
             products = new Product[xs.getLastRowNum()];
             for (int j = 1; j <= xs.getLastRowNum(); j++) {
                 XSSFRow row = xs.getRow(j);
-                Product product=new Product();
+                Product product = new Product();
                 for (int k = 0; k <= row.getLastCellNum(); k++) {
                     XSSFCell cell = row.getCell(k);
                     if (cell == null)
@@ -34,13 +34,45 @@ public class ReadProductExcel {
                         product.setpDesc(this.getValue(cell));
                     }
                 }
-                products[j-1] = product;
+                products[j - 1] = product;
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
         return products;
+    }
+
+    public Product ReadProductById(String id, InputStream in) {
+        Product products[] = null;
+        try {
+            XSSFWorkbook xw = new XSSFWorkbook(in);
+            XSSFSheet xs = xw.getSheetAt(0);
+            for (int j = 1; j <= xs.getLastRowNum(); j++) {
+                XSSFRow row = xs.getRow(j);
+                Product product = new Product();
+                for (int k = 0; k <= row.getLastCellNum(); k++) {
+                    XSSFCell cell = row.getCell(k);
+                    if (cell == null)
+                        continue;
+                    if (k == 0) {
+                        product.setpID(this.getValue(cell));
+                    } else if (k == 1) {
+                        product.setpName(this.getValue(cell));
+                    } else if (k == 2) {
+                        product.setPrice(this.getValue(cell));
+                    } else if (k == 3) {
+                        product.setpDesc(this.getValue(cell));
+                    }
+                }
+                if (id.equals(product.getpID())) {
+                    return product;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private String getValue(XSSFCell cell) {
@@ -58,8 +90,8 @@ public class ReadProductExcel {
                 value = cell.getBooleanCellValue() + "";
                 break;
             case NUMERIC:
-                DecimalFormat df =new DecimalFormat("#");
-                value=df.format(cell.getNumericCellValue());
+                DecimalFormat df = new DecimalFormat("#");
+                value = df.format(cell.getNumericCellValue());
                 break;
             case FORMULA:
                 value = cell.getCellFormula();
