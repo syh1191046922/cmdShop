@@ -18,25 +18,31 @@ public class Test {
             User users[] = readExcel.readExcel(in);
             for (int i = 0; i < users.length; i++) {
                 if (username.equals(users[i].getUsername()) && password.equals(users[i].getPassword())) {
+                    System.out.println("登陆成功");
+                    bo = false;
+                    /*显示商品*/
                     ReadProductExcel readProductExcel = new ReadProductExcel();
                     Product products[] = readProductExcel.readExcel(inPro);
                     for (Product product : products) {
                         System.out.print(product.getpID());
-                        System.out.print(product.getpName());
-                        System.out.print(product.getPrice());
-                        System.out.print(product.getpDesc());
+                        System.out.print("/t" + product.getpName());
+                        System.out.print("/t" + product.getPrice());
+                        System.out.print("/t" + product.getpDesc());
                     }
                     System.out.println("请输入商品ID把该商品加入购物车");
-                    String pID=sc.next();
-                    int count=0;
-                    Product productes[]=new Product[3];
-                    inPro=null;
+                    String pID = sc.next();
+                    int count = 0;
+                    /*创建购物车数组*/
+                    Product productes[] = new Product[3];
+
+                    inPro = null;
                     inPro = Class.forName("Test").getResourceAsStream("/Product.xlsx");
-                    Product product=readProductExcel.getProductById(pID,inPro);
-                    if(product!=null){
-                        productes[count++]=product;
+                    Product product = readProductExcel.getProductById(pID, inPro);
+                    System.out.println("想要购买商品的价格：" + product.getPrice());
+                    if (product != null) {
+                        productes[count++] = product;
                     }
-                    bo = false;
+
                     break;
                 } else {
                     System.out.println("登录失败");
