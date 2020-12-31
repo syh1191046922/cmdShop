@@ -25,10 +25,10 @@ public class Test {
                     ReadProductExcel readProductExcel = new ReadProductExcel();
                     Product products[] = readProductExcel.getAllProduct(inPro);
                     for (Product product : products) {
-                        System.out.print("\t" +product.getpID());
+                        System.out.print("\t" + product.getpID());
                         System.out.print("\t" + product.getpName());
                         System.out.print("\t" + product.getPrice());
-                        System.out.print("\t" + product.getpDesc());
+                        System.out.print("\t" + product.getpDesc() + "\n");
                     }
 
                     int count = 0;
@@ -42,24 +42,37 @@ public class Test {
                     if (product != null) {
                         productes[count++] = product;
                     }
+
                     System.out.println("查看购物车输入1：");
+                    System.out.println("继续购物输入2");
                     int choose = sc.nextInt();
+
                     if (choose == 1) {
                         for (Product product1 : productes) {
                             if (productes != null) {
-                                System.out.println("\t" +product1.getpID());
+                                System.out.println("\t" + product1.getpID());
                                 System.out.println("\t" + product1.getpName());
                                 System.out.println("\t" + product1.getPrice());
                                 System.out.println("\t" + product1.getpDesc());
                             }
                         }
                     }
-                    break;
-                } else {
-                    System.out.println("登录失败");
+                    else if (choose == 2) {
+                        System.out.println("请输入商品ID，把该商品加入购物车：");
+                        inPro = null;
+                        inPro = Class.forName("Test").getResourceAsStream("/product.xlsx");
+                        Product product1 = readProductExcel1.getProductById(pID, inPro);
+                        if (product != null) {
+                            productes[count++] = product;
+                        }
+
                 }
+                break;
+            } else{
+                System.out.println("登录失败");
             }
         }
     }
+}
 }
 
