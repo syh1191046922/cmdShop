@@ -20,26 +20,39 @@ public class Test {
                 if (username.equals(users[i].getUsername()) && password.equals(users[i].getPassword())) {
                     System.out.println("登陆成功");
                     bo = false;
+
                     /*显示商品*/
                     ReadProductExcel readProductExcel = new ReadProductExcel();
                     Product products[] = readProductExcel.getAllProduct(inPro);
                     for (Product product : products) {
-                        System.out.print(product.getpID());
-                        System.out.print("/t" + product.getpName());
-                        System.out.print("/t" + product.getPrice());
-                        System.out.print("/t" + product.getpDesc());
+                        System.out.print("\t" +product.getpID());
+                        System.out.print("\t" + product.getpName());
+                        System.out.print("\t" + product.getPrice());
+                        System.out.print("\t" + product.getpDesc());
                     }
 
                     int count = 0;
-                    Product productes[]=new Product[3];//创建购物车（用数组模拟）
+                    Product productes[] = new Product[3];//创建购物车（用数组模拟）
                     System.out.println("请输入商品ID，把该商品加入购物车：");
-                    String pID=sc.next();
-                    ReadProductExcel readProductExcel1=new ReadProductExcel();
-                    inPro=null;
-                    inPro=Class.forName("Test").getResourceAsStream("/product.xlsx");
-                    Product product=readProductExcel1.getProductById(pID,inPro);
+                    String pID = sc.next();
+                    ReadProductExcel readProductExcel1 = new ReadProductExcel();
+                    inPro = null;
+                    inPro = Class.forName("Test").getResourceAsStream("/product.xlsx");
+                    Product product = readProductExcel1.getProductById(pID, inPro);
                     if (product != null) {
                         productes[count++] = product;
+                    }
+                    System.out.println("查看购物车输入1：");
+                    int choose = sc.nextInt();
+                    if (choose == 1) {
+                        for (Product product1 : productes) {
+                            if (productes != null) {
+                                System.out.println("\t" +product1.getpID());
+                                System.out.println("\t" + product1.getpName());
+                                System.out.println("\t" + product1.getPrice());
+                                System.out.println("\t" + product1.getpDesc());
+                            }
+                        }
                     }
                     break;
                 } else {
