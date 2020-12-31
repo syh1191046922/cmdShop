@@ -22,27 +22,25 @@ public class Test {
                     bo = false;
                     /*显示商品*/
                     ReadProductExcel readProductExcel = new ReadProductExcel();
-                    Product products[] = readProductExcel.readExcel(inPro);
+                    Product products[] = readProductExcel.getAllProduct(inPro);
                     for (Product product : products) {
                         System.out.print(product.getpID());
                         System.out.print("/t" + product.getpName());
                         System.out.print("/t" + product.getPrice());
                         System.out.print("/t" + product.getpDesc());
                     }
-                    System.out.println("请输入商品ID把该商品加入购物车");
-                    String pID = sc.next();
-                    int count = 0;
-                    /*创建购物车数组*/
-                    Product productes[] = new Product[3];
 
-                    inPro = null;
-                    inPro = Class.forName("Test").getResourceAsStream("/Product.xlsx");
-                    Product product = readProductExcel.getProductById(pID, inPro);
-                    System.out.println("想要购买商品的价格：" + product.getPrice());
+                    int count = 0;
+                    Product productes[]=new Product[3];//创建购物车（用数组模拟）
+                    System.out.println("请输入商品ID，把该商品加入购物车：");
+                    String pID=sc.next();
+                    ReadProductExcel readProductExcel1=new ReadProductExcel();
+                    inPro=null;
+                    inPro=Class.forName("Test").getResourceAsStream("/product.xlsx");
+                    Product product=readProductExcel1.getProductById(pID,inPro);
                     if (product != null) {
                         productes[count++] = product;
                     }
-
                     break;
                 } else {
                     System.out.println("登录失败");

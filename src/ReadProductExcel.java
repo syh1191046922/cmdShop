@@ -11,7 +11,7 @@ import java.io.InputStream;
 import java.text.DecimalFormat;
 
 public class ReadProductExcel {
-    public Product[] readExcel(InputStream in) {
+    public Product[] getAllProduct(InputStream in) {
         Product products[] = null;
         try {
             XSSFWorkbook xw = new XSSFWorkbook(in);
@@ -43,8 +43,7 @@ public class ReadProductExcel {
         return products;
     }
 
-    public Product ReadProductById(String id, InputStream in) {
-        Product products[] = null;
+    public Product getProductById(String id, InputStream in) {
         try {
             XSSFWorkbook xw = new XSSFWorkbook(in);
             XSSFSheet xs = xw.getSheetAt(0);
