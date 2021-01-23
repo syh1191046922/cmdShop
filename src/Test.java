@@ -1,4 +1,3 @@
-import java.io.File;
 import java.io.InputStream;
 import java.util.Scanner;
 
@@ -40,6 +39,28 @@ public class Test {
                             }
                         } else if (choose == 2) {
                             shopping(sc);
+                        } else if (choose == 3) {
+                            /*
+                            1.产生订单
+                            2.用POI创建Order.xlsx文件
+                            3.把购物车里的商品写入Order.xlsx文件
+                             */
+                            Order order= new Order();
+                            order.setUser(users[i]);//订单关联用户
+                            Product product[]=new Product[count+1];
+                            int num=0;
+                            //把carts中的2个Product对象放入products
+                            for(int j=0;j<carts.length;j++){
+                                if(carts[i]!=null) {
+                                products[j]=carts[j];
+                                }
+                            }
+                            order.getProducts(products);//订单关联商品
+                            //如何关联订单和商品
+
+                            //下订单（创建Excel）
+
+                            CreateOrder.createOrder(order);
                         } else if (choose == 4) {
                             break;
                         }
