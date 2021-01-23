@@ -10,15 +10,15 @@ import java.io.FileOutputStream;
 
 
 public class CreateOrder {
-    /** Excel 文件要存放的位置，假定在F盘下*/
-    public static String outputFile = "F:\\test.xls";
+    /** Excel 文件要存放的位置，假定在E盘下*/
+    public static String outputFile = "E:\\ExcelTest\\test.xls";
     public static void createOrder(Order order) {
         try {
             // 创建新的Excel 工作簿
             HSSFWorkbook workbook = new HSSFWorkbook();
             // 在Excel工作簿中建一工作表，其名为缺省值
             // 如要新建一名为"效益指标"的工作表，其语句为：
-            HSSFSheet sheet = workbook.createSheet("学生成绩");
+            HSSFSheet sheet = workbook.createSheet("订单");
 
             CellStyle style = workbook.createCellStyle();
             //关键点 IndexedColors.AQUA.getIndex() 对应颜色
@@ -26,12 +26,12 @@ public class CreateOrder {
             style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 
             HSSFRow firstrow=sheet.createRow((short)0);
-            HSSFCell cell01=firstrow.createCell((short)1);
-            HSSFCell cell02=firstrow.createCell((short)2);
-            HSSFCell cell03=firstrow.createCell((short)3);
-            HSSFCell cell04=firstrow.createCell((short)4);
-            HSSFCell cell05=firstrow.createCell((short)5);
-            HSSFCell cell06=firstrow.createCell((short)6);
+            HSSFCell cell01=firstrow.createCell((short)0);
+            HSSFCell cell02=firstrow.createCell((short)1);
+            HSSFCell cell03=firstrow.createCell((short)2);
+            HSSFCell cell04=firstrow.createCell((short)3);
+            HSSFCell cell05=firstrow.createCell((short)4);
+            HSSFCell cell06=firstrow.createCell((short)5);
 
             cell01.setCellValue("用户");
             cell02.setCellValue("商品");
@@ -41,18 +41,27 @@ public class CreateOrder {
             cell06.setCellValue("下单时间");
 
             //外循环的次数和购物车有关
-            for(int i=0;i<order.getProducts().length;i++){
-				// 在索引0的位置创建行（最顶端的行）
-				HSSFRow row = sheet.createRow((short)i+1);
-				for (int j=0;j<6;j++){
-                    HSSFCell cell=firstrow.createCell((short)j);
-                    if (j==0) {
+            for(int i=0;i<order.getProducts().length;i++) {
+                // 在索引0的位置创建行（最顶端的行）
+                HSSFRow row = sheet.createRow((short) i + 1);
+                for (int j = 0; j < 6; j++) {
+                    HSSFCell cell = row.createCell((short) j);
+                    if (j == 0) {
                         cell.setCellValue(order.getUser().getUsername());
-
+                    } else if (j == 1) {
+                        cell.setCellValue(order.getProducts()[i].getpID());
+                    } else if (j == 2) {
+                        cell.setCellValue(order.getAmount());
+                    } else if (j == 3) {
+                        cell.setCellValue(order.getProducts()[i].getPrice());
+                    } else if (j == 4) {
+                        cell.setCellValue(order.getActualPay());
+                    } else if (j == 5) {
+                        cell.setCellValue(order.getOrderDate());
                     }
-
                 }
-			}
+            }
+
             // 新建一输出文件流
             FileOutputStream fOut = new FileOutputStream(outputFile);
             // 把相应的Excel 工作簿存盘

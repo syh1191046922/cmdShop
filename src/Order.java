@@ -9,15 +9,6 @@ public class Order {
     private Product products[];
     private int amount;
     private float totalPay;
-
-    public Product[] getProducts() {
-        return products;
-    }
-
-    public void setProducts(Product[] products) {
-        this.products = products;
-    }
-
     private float actualPay;
     private Date orderDate;
 
@@ -29,7 +20,13 @@ public class Order {
         this.user = user;
     }
 
+    public Product[] getProducts() {
+        return products;
+    }
 
+    public void setProducts(Product[] products) {
+        this.products = products;
+    }
 
     public int getAmount() {
         return amount;
